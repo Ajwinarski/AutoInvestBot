@@ -4,7 +4,7 @@ An automated investment bot.
 
 ## Getting Started
 
-Sign up for a free account at alpaca.markets. Once you've verified your email and signed in, select the "Go to Paper Account" in the left menu bar. Here you will see your 'paper money' which can be used for risk-free algorithm investment testing. On this page you will also find your API key and secret key which will be used later for using the api.
+Sign up for a free account at alpaca.markets. Once you've verified your email and signed in, select the `Go to Paper Account` in the left menu bar. Here you will see your *paper money* which can be used for risk-free algorithm investment testing. On this page you will also find your `API_KEY` and `API_SECRET` parameters which will need to be input in the config.py file.
 
 ### Prerequisites
 
