@@ -15,7 +15,8 @@ Sign up for a free account at alpaca.markets. Once you've verified your email an
 Open a new VSCode terminal and run the following command(s):
 
 ```
-pip3 install alpaca_trade_api black
+pip install --user --upgrade pip
+pip install --user alpaca_trade_api
 ```
 
 ## Running the program
@@ -32,7 +33,7 @@ Give an example
 
 ### Coding Styling
 
-Styling with be managed with [black](https://dev.to/adamlombard/how-to-use-the-black-python-code-formatter-in-vscode-3lo0) and [linted automatically with VSCode](https://code.visualstudio.com/docs/python/linting).
+Styling with be done using autopep8 and [linted automatically with VSCode](https://code.visualstudio.com/docs/python/linting).
 
 ## Built With
 
