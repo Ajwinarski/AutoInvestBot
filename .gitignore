@@ -1,2 +1,8 @@
-./__pycache__/
+# Folders
+*/__pycache__/*
+
+# File Types
 *.pyc
+
+# Single Files
+config.py
