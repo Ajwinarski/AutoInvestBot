@@ -15,8 +15,8 @@ Sign up for a free account at alpaca.markets. Once you've verified your email an
 Open a new VSCode terminal and run the following command(s):
 
 ```
-pip install --user --upgrade pip
-pip install --user alpaca_trade_api
+pip3 install --user --upgrade pip
+pip3 install --user alpaca_trade_api lxml yfinance plotly
 ```
 
 ## Running the program
