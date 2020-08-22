@@ -3,6 +3,7 @@ from alpaca_trade_api import StreamConn
 from config import *
 from enum import Enum, unique
 
+import csv
 import time
 import os.path
 from os import path
@@ -59,6 +60,31 @@ class CSV_Handler:
         for stock in stocks:
             data = yf.download(stock, start, end)
             data.to_csv('./db/'+stock+'.csv')
+
+    # Grab all relevant data from a specified csv file
+    # Review: http://beancoder.com/linear-regression-stock-prediction/
+    def get_data(self, filename: str):
+        dates = []
+        open_prices = []
+        close_prices = [] 
+        high_prices = []
+        low_prices = [] 
+        volume = []
+
+        with open(filename, 'r') as csvfile:
+            csvFileReader = csv.reader(csvfile)
+            next(csvFileReader)     # skip first row
+            for row in csvFileReader:
+                dates.append(int(row[0]))
+                open_prices.append(float(row[1]))
+                close_prices.append(float(row[4]))
+                high_prices.append(float(row[2]))
+                low_prices.append(float(row[3]))
+                volume.append(int(row[6]))
+
+        return dates,open_prices,close_prices,high_prices,low_prices,volume
+
+    def predict_price
 
     # View the candle charts of the given stock(s)
     def see_candle(self, stocks):
