@@ -2,10 +2,16 @@ import alpaca_trade_api as tradeapi
 from alpaca_trade_api import StreamConn
 from config import *
 from enum import Enum, unique
+
 import time
+import os.path
+from os import path
+
 import yfinance as yf
 import pandas as pd
 import plotly.graph_objs as go
+import numpy as np
+import sklearn.linear_model as LinearRegression
 
 @unique
 class Action(Enum):
@@ -27,6 +33,49 @@ class Analyzer:
 class Trader:
     def trade_result(self, AnalysisResult) -> str:
         return "hi"
+
+class CSV_Handler:
+    def __init__(self):
+        pass
+
+    # Pulls the current S&P 500 companies
+    def update_sp500(self, update_all_files: bool = False):
+        table=pd.read_html(io='https://en.wikipedia.org/wiki/List_of_S%26P_500_companies')
+        df = table[0]
+        df.to_csv("./db/S&P500-Info.csv")
+        df.to_csv("./db/S&P500-Symbols.csv", columns=['Symbol'])
+
+        if update_all_files:
+            test_stocks = pd.read_csv("./db/S&P500-Symbols.csv", squeeze=True)
+            test_stocks_list = test_stocks.Symbol.to_list()
+
+            self.create_csvs(test_stocks_list, start="2020-1-1", end="2020-8-21")
+
+    # Generate CSVs containing all stock data or a portion of the stock data 
+    def create_csvs(self, stocks, start=None, end=None):
+        if type(stocks) is not list: 
+            stocks = [ stocks ]
+
+        for stock in stocks:
+            data = yf.download(stock, start, end)
+            data.to_csv('./db/'+stock+'.csv')
+
+    # View the candle charts of the given stock(s)
+    def see_candle(self, stocks):
+        if type(stocks) is not list: 
+            stocks = [ stocks ]
+
+        for stock in stocks:
+            if path.exists('./db/'+stock+'.csv'):
+                candle_csv = pd.read_csv('./db/'+stock+'.csv')
+                candle_data = [go.Candlestick(x=candle_csv['Date'],
+                    open=candle_csv['Open'],
+                    high=candle_csv['High'],
+                    low=candle_csv['Low'],
+                    close=candle_csv['Close'])]
+            
+                figSignal = go.Figure(data=candle_data)
+                figSignal.show()
 
 class AutoInvestBot:
     def __init__(self):
@@ -51,44 +100,13 @@ class AutoInvestBot:
     def tickers(self, stocks: str):
         return yf.Tickers(stocks)
 
-    # Generate CSVs containing all stock data or a portion of the stock data 
-    def create_csvs(self, stocks, start=None, end=None):
-        if type(stocks) is not list: 
-            stocks = [ stocks ]
-
-        for stock in stocks:
-            data = yf.download(stock, start, end)
-            data.to_csv('./db/'+stock+'.csv')
-
 if __name__ == "__main__":
     bot = AutoInvestBot()
+    csv_handler = CSV_Handler()
 
-    table=pd.read_html(io='https://en.wikipedia.org/wiki/List_of_S%26P_500_companies')
-    df = table[0]
-    df.to_csv("./db/S&P500-Info.csv")
-    df.to_csv("./db/S&P500-Symbols.csv", columns=['Symbol'])
-    
-    test_stocks = pd.read_csv("./db/S&P500-Symbols.csv", squeeze=True)
-    test_stocks_list = test_stocks.Symbol.to_list()
+    # bot.update_sp500()
 
-    bot.create_csvs(test_stocks_list, start="2020-1-1", end="2020-8-21")
-
-    # data = yf.download("MSFT", start="2020-1-1", end="2020-8-20")
-    # data.to_csv('./db/msft_y2d.csv')
-    # msft_candle = pd.read_csv("./db/msft_y2d.csv")
-    # candle_data=[go.Candlestick(x=msft_candle['Date'],
-    #             open=msft_candle['Open'],
-    #             high=msft_candle['High'],
-    #             low=msft_candle['Low'],
-    #             close=msft_candle['Close'])]
-    # figSignal = go.Figure(data=candle_data)
-    # figSignal.show()          
-    # print(data)
-
-    # table=pd.read_html('https://en.wikipedia.org/wiki/List_of_S%26P_500_companies')
-    # df = table[0]
-    # df.to_csv('./db/S&P500-Info.csv')
-    # df.to_csv("./db/S&P500-Symbols.csv", columns=['Symbol'])
+    csv_handler.see_candle(['TSLA','AAPL'])
     
     bot.account_info()
 
