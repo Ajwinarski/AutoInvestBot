@@ -16,7 +16,7 @@ Open a new VSCode terminal and run the following command(s):
 
 ```
 pip3 install --user --upgrade pip
-pip3 install --user alpaca_trade_api lxml yfinance plotly
+pip3 install --user alpaca_trade_api lxml yfinance plotly sklearn
 ```
 
 ## Running the program
