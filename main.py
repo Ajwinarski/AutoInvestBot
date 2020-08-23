@@ -10,9 +10,10 @@ from os import path
 
 import yfinance as yf
 import pandas as pd
+from matplotlib import pyplot as plt
 import plotly.graph_objs as go
 import numpy as np
-import sklearn.linear_model as LinearRegression
+from sklearn import linear_model as lm
 
 @unique
 class Action(Enum):
@@ -63,12 +64,12 @@ class CSV_Handler:
 
     # Grab all relevant data from a specified csv file
     # Review: http://beancoder.com/linear-regression-stock-prediction/
-    def get_data(self, filename: str):
+    def get_data(self, filename: str, show_plot: bool):
         dates = []
         open_prices = []
-        close_prices = [] 
+        close_prices = []
         high_prices = []
-        low_prices = [] 
+        low_prices = []
         volume = []
 
         with open(filename, 'r') as csvfile:
@@ -82,9 +83,30 @@ class CSV_Handler:
                 low_prices.append(float(row[3]))
                 volume.append(int(row[6]))
 
+        if show_plot:
+            self.show_LR_plot(dates,open_prices)
+
         return dates,open_prices,close_prices,high_prices,low_prices,volume
 
-    def predict_price
+    def show_LR_plot(self, dates, prices):
+        linear_mod = lm.LinearRegression()
+        dates = np.reshape(dates,(len(dates),1)) # converting to matrix of n X 1
+        prices = np.reshape(prices,(len(prices),1))
+        linear_mod.fit(dates,prices) #fitting the data points in the model
+        plt.scatter(dates,prices,color='yellow') #plotting the initial datapoints 
+        plt.plot(dates,linear_mod.predict(dates),color='blue',linewidth=3) #plotting the line made by linear regression
+        plt.show()
+        return
+
+    # WIP
+    # def predict_price(self, dates: list, prices: list):
+    #     linear_mod = LinearRegression() #defining the linear regression model
+    #     dates = np.reshape(dates,(len(dates),1)) # converting to matrix of n X 1
+    #     prices = np.reshape(prices,(len(prices),1))
+    #     linear_mod.fit(dates,prices) #fitting the data points in the model
+    #     predicted_price = linear_mod.predict(x)
+        
+    #     return predicted_price[0][0],linear_mod.coef_[0][0] ,linear_mod.intercept_[0]
 
     # View the candle charts of the given stock(s)
     def see_candle(self, stocks):
@@ -132,7 +154,9 @@ if __name__ == "__main__":
 
     # bot.update_sp500()
 
-    csv_handler.see_candle(['TSLA','AAPL'])
+    # csv_handler.see_candle(['TSLA','AAPL'])
+
+    csv_handler.get_data('./db/ZTS.csv', True)
     
     bot.account_info()
 
