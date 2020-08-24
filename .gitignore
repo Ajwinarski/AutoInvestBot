@@ -6,3 +6,4 @@
 *.pyc
 
 # Single Files
+config.py
