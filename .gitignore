@@ -1,8 +1,8 @@
 # Folders
 */__pycache__/*
+/db/*
 
 # File Types
 *.pyc
 
 # Single Files
-config.py
