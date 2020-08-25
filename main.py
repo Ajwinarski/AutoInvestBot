@@ -3,6 +3,13 @@ from alpaca_trade_api import StreamConn
 from config import *
 from enum import Enum, unique
 
+import yfinance as yf
+import pandas as pd
+from matplotlib import pyplot as plt
+import plotly.graph_objs as go
+import numpy as np
+from sklearn import linear_model as lm
+
 import csv
 import time
 import os.path
@@ -15,13 +22,6 @@ try:
     os.makedirs(db)
 except OSError:
     pass
-
-import yfinance as yf
-import pandas as pd
-from matplotlib import pyplot as plt
-import plotly.graph_objs as go
-import numpy as np
-from sklearn import linear_model as lm
 
 @unique
 class Action(Enum):
