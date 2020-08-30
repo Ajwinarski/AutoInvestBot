@@ -14,6 +14,7 @@ from matplotlib import pyplot as plt
 import plotly.graph_objs as go
 import numpy as np
 from sklearn import linear_model as lm
+from datetime import datetime
 
 @unique
 class Action(Enum):
@@ -76,7 +77,8 @@ class CSV_Handler:
             csvFileReader = csv.reader(csvfile)
             next(csvFileReader)     # skip first row
             for row in csvFileReader:
-                dates.append(int(row[0]))
+                date_time_obj = datetime.strptime(row[0], '%Y-%m-%d')
+                dates.append((int)(date_time_obj.strftime("%Y%m%d")))
                 open_prices.append(float(row[1]))
                 close_prices.append(float(row[4]))
                 high_prices.append(float(row[2]))
