@@ -97,7 +97,7 @@ class CSV_Handler:
         dates = np.reshape(dates,(len(dates),1))
         prices = np.reshape(prices,(len(prices),1))
 
-        #set up the lm models we'll use
+        #set up the lm models we'll use (for each time horizon)
         linear_mod_1m = lm.LinearRegression()
         linear_mod_3m = lm.LinearRegression()
         linear_mod_6m = lm.LinearRegression()
@@ -105,7 +105,7 @@ class CSV_Handler:
         linear_mod_3y = lm.LinearRegression()
         linear_mod_5y = lm.LinearRegression()
 
-        #fitting the data points in the model
+        #Fitting the data points in the model (for each time horizon)
         linear_mod_1m.fit(dates[-20:],prices[-20:]) 
         linear_mod_3m.fit(dates[-60:],prices[-60:])
         linear_mod_6m.fit(dates[-120:],prices[-120:])
@@ -114,15 +114,15 @@ class CSV_Handler:
         linear_mod_5y.fit(dates[-1260:],prices[-1260:])
 
         #All data is plotted on a scatter
-        plt.scatter(dates,prices,color='red') #plotting the initial datapoints 
+        plt.scatter(dates,prices,color='red') 
 
-        #plt.plot(dates,linear_mod.predict(dates),color='blue',linewidth=3) #plotting the line made by linear regression
-        plt.plot(dates[-20:], linear_mod_1m.predict(dates[-20:]), label="1 month") #1 month
-        plt.plot(dates[-60:], linear_mod_3m.predict(dates[-60:]), label="3 month") #3 month
-        plt.plot(dates[-120:], linear_mod_6m.predict(dates[-120:]), color='green', linewidth=3, label="6 month") #6 month
-        plt.plot(dates[-252:], linear_mod_1y.predict(dates[-252:]), color='blue', linewidth=3, label="1 year") #1 year
-        plt.plot(dates[-756:], linear_mod_3y.predict(dates[-756:]), color='indigo', linewidth=3, label="3 year") #3 year
-        plt.plot(dates[-1260:], linear_mod_5y.predict(dates[-1260:]), color='violet', linewidth=3, label="5 year") #5 year
+        #Plot each of the linear regressions
+        plt.plot(dates[-20:], linear_mod_1m.predict(dates[-20:]), label="1 month")
+        plt.plot(dates[-60:], linear_mod_3m.predict(dates[-60:]), label="3 month")
+        plt.plot(dates[-120:], linear_mod_6m.predict(dates[-120:]), color='green', linewidth=3, label="6 month")
+        plt.plot(dates[-252:], linear_mod_1y.predict(dates[-252:]), color='blue', linewidth=3, label="1 year")
+        plt.plot(dates[-756:], linear_mod_3y.predict(dates[-756:]), color='indigo', linewidth=3, label="3 year")
+        plt.plot(dates[-1260:], linear_mod_5y.predict(dates[-1260:]), color='violet', linewidth=3, label="5 year")
 
         plt.legend(loc="upper left")
         plt.show()
