@@ -95,7 +95,7 @@ class CSV_Handler:
         dates = np.reshape(dates,(len(dates),1)) # converting to matrix of n X 1
         prices = np.reshape(prices,(len(prices),1))
         linear_mod.fit(dates,prices) #fitting the data points in the model
-        plt.scatter(dates,prices,color='yellow') #plotting the initial datapoints 
+        plt.scatter(dates,prices,color='red') #plotting the initial datapoints 
         plt.plot(dates,linear_mod.predict(dates),color='blue',linewidth=3) #plotting the line made by linear regression
         plt.show()
         return
