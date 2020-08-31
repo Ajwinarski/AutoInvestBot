@@ -16,14 +16,6 @@ import time
 import os.path
 from os import path
 
-dir = path.dirname(__file__)
-db = r'./db/'.format(dir)
-
-try:
-    os.makedirs(db)
-except OSError:
-    pass
-
 @unique
 class Action(Enum):
     Buy = 1
