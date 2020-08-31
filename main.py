@@ -65,7 +65,7 @@ class CSV_Handler:
 
     # Grab all relevant data from a specified csv file
     # Review: http://beancoder.com/linear-regression-stock-prediction/
-    def get_data(self, filename: str, show_plot: bool):
+    def get_data(self, filename: str, show_plot: bool = False):
         dates = []
         open_prices = []
         close_prices = []
@@ -158,6 +158,7 @@ class CSV_Handler:
 class AutoInvestBot:
     def __init__(self):
         self.api = tradeapi.REST(API_KEY, API_SECRET_KEY, ALPACA_BASE_ENDPOINT)
+        self.csv = CSV_Handler()
 
     # Obtain and print account information
     def account_info(self):
@@ -180,13 +181,14 @@ class AutoInvestBot:
 
 if __name__ == "__main__":
     bot = AutoInvestBot()
-    csv_handler = CSV_Handler()
 
     # bot.update_sp500()
 
-    # csv_handler.see_candle(['TSLA','AAPL'])
+    # bot.csv.see_candle(['TSLA','AAPL'])
 
-    csv_handler.get_data('./db/ZTS.csv', True)
+    ZTS_data = bot.csv.get_data('./db/ZTS.csv', False)
+    
+    bot.csv.show_LR_plot(ZTS_data[0], ZTS_data[1])
     
     bot.account_info()
 
