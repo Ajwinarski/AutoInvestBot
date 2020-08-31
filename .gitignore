@@ -5,5 +5,7 @@
 # File Types
 *.pyc
 
-# Single Files
-config.py
+# Single Files to Ignore
+
+# Single Files not to Ignore
+!/db/S&P500-info.csv
