@@ -173,6 +173,17 @@ class AutoInvestBot:
             trade_result = trader.trade_result(analysis_result)
             print(trade_result)
             time.sleep(10)
+            
+    # Used to submit buy or sell orders
+    def order(self, side, stock, qty):
+        # Check that qty is greater than 0
+        if(qty > 0):
+            try:
+                self.alpaca.submit_order(stock, qty, side, "market", "day")
+                print("Purchased " + str(qty) + " shares of " + stock + ".")
+            except:
+                print("ERROR: Purchase order for " + str(qty) +
+                      " shares of " + stock + " did not go through.")
 
     # Holds the information for the given stocks
     # - stocks arg is a string of stocks separated with spaces
