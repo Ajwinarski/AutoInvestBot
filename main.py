@@ -3,11 +3,6 @@ from alpaca_trade_api import StreamConn
 from config import *
 from enum import Enum, unique
 
-import csv
-import time
-import os.path
-from os import path
-
 import yfinance as yf
 import pandas as pd
 from matplotlib import pyplot as plt
@@ -15,6 +10,19 @@ import plotly.graph_objs as go
 import numpy as np
 from sklearn import linear_model as lm
 from datetime import datetime
+
+import csv
+import time
+import os.path
+from os import path
+
+dir = path.dirname(__file__)
+db = r'./db/'.format(dir)
+
+try:
+    os.makedirs(db)
+except OSError:
+    pass
 
 @unique
 class Action(Enum):
@@ -154,6 +162,7 @@ class CSV_Handler:
             
                 figSignal = go.Figure(data=candle_data)
                 figSignal.show()
+
 
 class AutoInvestBot:
     def __init__(self):
