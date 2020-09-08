@@ -4,3 +4,4 @@ yfinance
 plotly 
 sklearn 
 matplotlib
+pyqt5

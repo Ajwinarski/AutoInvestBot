@@ -1,20 +1,26 @@
+# Common imports
+import csv
+import time
+from enum import Enum, unique
+import os.path
+from os import path
+from datetime import datetime
+
+# Alpaca imports
 import alpaca_trade_api as tradeapi
 from alpaca_trade_api import StreamConn
 from config import *
-from enum import Enum, unique
 
+# Libraries
 import yfinance as yf
 import pandas as pd
 from matplotlib import pyplot as plt
 import plotly.graph_objs as go
 import numpy as np
 from sklearn import linear_model as lm
-from datetime import datetime
 
-import csv
-import time
-import os.path
-from os import path
+# GUI import
+from gui import *
 
 @unique
 class Action(Enum):
@@ -190,20 +196,30 @@ class AutoInvestBot:
     # - stocks arg is a string of stocks separated with spaces
     def tickers(self, stocks: str):
         return yf.Tickers(stocks)
-
-if __name__ == "__main__":
+    
+def main():
     bot = AutoInvestBot()
-
+    
     # bot.update_sp500()
-
     # bot.csv.see_candle(['TSLA','AAPL'])
 
     ZTS_data = bot.csv.get_data('./db/ZTS.csv', False)
-    
     bot.csv.show_LR_plot(ZTS_data[0], ZTS_data[1])
     
     bot.account_info()
-
     # bot.worker_thread()
+
+    # GUI
+    app = QApplication(sys.argv)
+
+    window = MainWindow()
+    window.show()
+
+    app.exec_()
+
+if __name__ == "__main__":
+    main()
+
+    
 
     
