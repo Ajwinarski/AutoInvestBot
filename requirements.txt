@@ -1,7 +1,10 @@
-alpaca_trade_api 
-lxml 
-yfinance 
-plotly 
-sklearn 
+alpaca_trade_api
+lxml
 matplotlib
+pandas
+pandas_market_calendars
+plotly
 pyqt5
+schedule
+sklearn
+yfinance
