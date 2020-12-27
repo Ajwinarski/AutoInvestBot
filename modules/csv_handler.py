@@ -4,7 +4,7 @@ from datetime import date
 from os import path
 
 # Absolute Imports
-from algorithms.linear_regression import LinearRegression as lr
+from modules.algorithms.linear_regression import LinearRegression as lr
 
 # Libraries
 from matplotlib import pyplot as plt

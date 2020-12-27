@@ -20,8 +20,8 @@ def main():
 
     # aib.csv.see_candle(['TSLA','AAPL'])
 
-    # ZTS_data = aib.csv.get_data('./db/ZTS.csv', False)
-    # aib.csv.show_LR_plot(ZTS_data[0], ZTS_data[1])
+    ZTS_data = aib.csv.get_data('./db/ZTS.csv', False)
+    aib.csv.show_LR_plot(ZTS_data[0], ZTS_data[1])
 
     # aib.account_info()
     # aib.worker_thread()
