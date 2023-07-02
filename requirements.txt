@@ -1,10 +1,13 @@
-alpaca_trade_api
+holidays
 lxml
 matplotlib
 pandas
+pandas_datareader
 pandas_market_calendars
 plotly
 pyqt5
+PyQtWebEngine
 schedule
-sklearn
+scikit-learn
 yfinance
+certifi

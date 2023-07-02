@@ -1,18 +1,19 @@
 # Auto Invest Bot
 
-An automated investment bot.
+An automated investment bot used for market analysis and informed decision making. Paper trading functionality will be implemented to allow users to test market strategies using the tool. **Myself and the contributers to this application do not take responsibility for profits and losses made using this application. This is mearly a tool meant to be used for making better market decisions **
 
 ## Getting Started
 
-Sign up for a free account at alpaca.markets. Once you've verified your email and signed in, select the `Go to Paper Account` in the left menu bar. Here you will see your *paper money* which can be used for risk-free algorithm investment testing. On this page you will also find your `API_KEY` and `API_SECRET` parameters which will need to be input in the config.py file.
+In the process of changing paper trading platforms. More information and development on this to come soon.
 
 ### Prerequisites
 
-[VSCode](https://code.visualstudio.com/download) will be the IDE used for this project. [Python 3.6](https://www.python.org/downloads/) and above is required.
+[Python 3.6](https://www.python.org/downloads/) and above is required.
+For developers, [VSCode](https://code.visualstudio.com/download) will be the IDE used for this project.
 
 ### Installing
 
-Open a new VSCode terminal and run the following command(s):
+Open a new terminal in the repo folder and run the following command(s):
 
 ```
 pip3 install --user --upgrade pip
@@ -21,7 +22,10 @@ pip3 install -r requirements.txt
 
 ## Running the program
 
-Open the root directory and run main.py using python 3.
+Open the root directory and run:
+'''
+python3 main.py 
+'''
 
 ### Testing
 
@@ -35,9 +39,10 @@ Give an example
 
 Styling with be done using autopep8 and [linted automatically with VSCode](https://code.visualstudio.com/docs/python/linting).
 
-## Built With
+### Future Developments
 
-* TODO: Add an application interface for the alpaca data
+- An automated buying and selling feature using the most popular brokers
+- Incorporation of [basana](https://github.com/gbeced/basana) for paper trading
 
 ## Contributing
 
