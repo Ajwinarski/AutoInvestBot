@@ -10,12 +10,13 @@ from os import path
 from auto_invest_bot import AutoInvestBot
 from modules.csv_handler import CSV_Handler
 from modules.market_data_handler import MarketDataHandler
+from modules.fmp_handler import FMP_Handler
 
 # GUI Import
 from gui import *
 from gui_gpt import *
 
-
+# TODO: Rename this project to METF/MeTF/MEtf (My ETF)
 def main():
     # aib = AutoInvestBot()
     # market = MarketDataHandler()   # TODO: Move this to AutoInvestBot
@@ -29,18 +30,20 @@ def main():
     # aib.account_info()
     # aib.worker_thread()
 
-    csv_handler = CSV_Handler()
+    # csv_handler = CSV_Handler()
 
-    # GUI
-    app = QApplication(sys.argv)
+    fmp = FMP_Handler()
 
-    # Window setup
-    window = MainWindow(csv_handler)
-    window.show()
+    # # GUI
+    # app = QApplication(sys.argv)
 
-    # App execution
-    # app.exec_()
-    sys.exit(app.exec_())
+    # # Window setup
+    # window = MainWindow(csv_handler)
+    # window.show()
+
+    # # App execution
+    # # app.exec_()
+    # sys.exit(app.exec_())
 
 
 if __name__ == "__main__":

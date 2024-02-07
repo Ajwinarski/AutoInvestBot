@@ -8,7 +8,7 @@ In the process of changing paper trading platforms. More information and develop
 
 ### Prerequisites
 
-[Python 3.6](https://www.python.org/downloads/) and above is required.
+[Python 3.X](https://www.python.org/downloads/) is required.
 For developers, [VSCode](https://code.visualstudio.com/download) will be the IDE used for this project.
 
 ### Installing
@@ -16,15 +16,15 @@ For developers, [VSCode](https://code.visualstudio.com/download) will be the IDE
 Open a new terminal in the repo folder and run the following command(s):
 
 ```
-pip3 install --user --upgrade pip
-pip3 install -r requirements.txt
+pip install --user --upgrade pip
+pip install --user -r requirements.txt
 ```
 
 ## Running the program
 
 Open the root directory and run:
 '''
-python3 main.py 
+python main.py 
 '''
 
 ### Testing

@@ -1,7 +1,7 @@
 # Common Imports
 import csv
 from datetime import date
-from os import path
+import os
 import ssl
 
 # Absolute Imports
@@ -17,55 +17,105 @@ import pandas_market_calendars as pmc
 import plotly.graph_objs as go
 from sklearn import linear_model as lm
 import yfinance as yf
-
+from fmp_python.fmp import FMP
 
 class CSV_Handler:
+    """
+    Create, remove, modify, and read CSV file data.
+
+    Args:
+        None.
+
+    Returns:
+        None.
+    """
+
     def __init__(self):
-        self.symbols: list = self.get_symbols()
+        self.update_watchlist()
+        # self.symbols: list = self.get_symbols()
+
+    def update_watchlist(self):
+        """
+        Update the stock data for relevant tickers from Yahoo! Finance.
+
+        Args:
+            self: parent class data passing.
+
+        Returns:
+            None.
+        """    
+        directory = "./db/watchlist/"
+        for file in os.listdir(directory):
+            filename = os.fsdecode(file)
+            if filename.endswith(".csv"): 
+                print(os.path.join(directory, filename))
+                print(file.split(sep='.')[0])
+                continue
+            else:
+                continue
+        pass
 
     # Get list of symbols from a csv file
     def get_symbols(self) -> list:
         symbols = []
 
-        csv_data = self.get_csv_data('Symbols')
-        next(csv_data)  # skip first row
-        for row in csv_data:
-            symbols.append(str(row[0]))
+        csv_data = pd.read_csv('Symbols')
+
+        # Check if Symbols file is empty
+        if not csv_data.empty:
+            next(csv_data)  # skip first row
+            for row in csv_data:
+                symbols.append(str(row[0]))
 
         return symbols
 
     def get_csv_data(self, filename: str):
-        csv_file = open('./db/'+filename+'.csv', 'r')
-        return csv.reader(csv_file)
+        try:
+            csv_file = open('./db/'+filename+'.csv', 'r')
+            return csv.reader(csv_file)
+        except FileNotFoundError:
+            # Create an empty csv file for the filename given
+            with open('./db/'+filename+'.csv', 'w') as file:
+                return file
 
     def get_sp500(self):
         # Get the list of S&P 500 tickers
         sp500_tickers = yf.Tickers('^GSPC').tickers
+        print("S&P500: ", sp500_tickers)
 
         # Create an empty DataFrame to store the stock data
         sp500_data = pd.DataFrame()
 
         # Retrieve stock data for each ticker
         for ticker in sp500_tickers:
-            symbol = ticker.ticker
-            data = ticker.history(period="1d")
+            symbol = yf.Ticker(ticker)
+            data = symbol.history(period="1d")
             # Add a 'Symbol' column with the ticker symbol
-            data['Symbol'] = symbol
+            data['Symbol'] = symbol.ticker
             sp500_data = pd.concat([sp500_data, data])
 
         # Save the stock data to CSV
         sp500_data.to_csv('db/S&P500.csv')
         pass
 
-    def get_stock_data(self, stock: str):
-        if stock not in self.symbols:
-            try:
-                data = yf.download(stock)
-                data.to_csv('./db/'+stock+'.csv')
-                self.symbols.append(stock)
-            except:
-                print("Stock symbol not found")
+    def download_stock_data(self, stock: str, location: str):
+        try:
+            os.listdir(location)
+
+            if stock not in os.listdir(location):
+                try:
+                    data = yf.download(stock)
+                    data.to_csv('./db/'+stock+'.csv')
+                    self.symbols.append(stock)
+                except:
+                    print("Stock symbol not found")
+        except:
+            pass
+        
         pass
+
+    # def add_stock_to_watchlist(self):
+
 
     # Pulls the current S&P 500 companies
     def update_sp500(self, update_all_files: bool = False):
