@@ -16,8 +16,8 @@ For developers, [VSCode](https://code.visualstudio.com/download) will be the IDE
 Open a new terminal in the repo folder and run the following command(s):
 
 ```
-pip3 install --user --upgrade pip
-pip3 install -r requirements.txt
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
 ```
 
 ## Running the program
