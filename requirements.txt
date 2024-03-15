@@ -19,6 +19,7 @@ pyfolio
 pykalman
 pyqt5
 PyQtWebEngine
+rel
 schedule
 scikit-learn
 seaborn
@@ -26,5 +27,7 @@ statsmodels
 TA-Lib
 tables
 tqdm
+websocket
+websocket-client
 yfinance
 zipline
