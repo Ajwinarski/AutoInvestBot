@@ -2,6 +2,7 @@ arch
 backtrader
 backtrader_plotting
 certifi
+fastparquet
 fmp_python
 holidays
 logbook
@@ -13,6 +14,7 @@ pandas_datareader
 pandas_market_calendars
 pandas_ta
 plotly
+pyarrow
 pyfolio
 pykalman
 pyqt5
@@ -22,6 +24,7 @@ scikit-learn
 seaborn
 statsmodels
 TA-Lib
+tables
 tqdm
 yfinance
 zipline
